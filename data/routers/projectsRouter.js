@@ -3,6 +3,7 @@ const project = require("../helpers/projectModel.js");
 const actionsRouter = require("./actionsRouter");
 const router = express.Router();
 router.use("/:id/actions", actionsRouter);
+
 router.get("/", (req, res) => {
   project
     .get()
@@ -18,7 +19,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   project
-    .get(req.params.id)
+    .getProjectActions(req.params.id)
     .then(data => {
       return res.status(200).json(data);
     })
@@ -57,25 +58,27 @@ router.post("/", (req, res) => {
     });
 });
 
-// router.delete("/:id", (req, res) => {
-//   const id = req.params.id;
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
 
-//   project.get(id).then(data => {
-//     if (!data) {
-//      return res.status(404).json({ Message: "Project with that ID not found" });
-//     }
-//   });
-//   project
-//     .remove(id)
-//     .then(data => {
-//       if (data) {
-//        return res.status(200).json("Project Deleted");
-//       }
-//     })
-//     .catch(error => {
-//      return res.status(500).json({ error: "The project could not be removed" });
-//     });
-// });
+  project.get(id).then(data => {
+    if (!data) {
+      return res
+        .status(404)
+        .json({ Message: "Project with that ID not found" });
+    }
+  });
+  project
+    .remove(id)
+    .then(data => {
+      if (data) {
+        return res.status(200).json("Project Deleted");
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ error: "The project could not be removed" });
+    });
+});
 
 router.put("/:id", (req, res) => {
   const updateProject = {

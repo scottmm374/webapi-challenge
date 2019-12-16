@@ -34,9 +34,7 @@ router.post("/:id", (req, res) => {
   action.get(id).then(data => {
     console.log(data);
     if (!data) {
-      return res
-        .status(404)
-        .json({ message: "The project with the specified ID does not exist." });
+      return res.status(404).json({ message: "The ID does not exist." });
     }
   });
 
@@ -77,9 +75,43 @@ router.delete("/:id", (req, res) => {
     .catch(error => {
       console.log(error, "err");
       res.status(500).json({
-        error: "There was an error while saving the comment to the database"
+        error: "There was an error deleting the action"
       });
     });
+});
+
+router.put("/:id", (req, res) => {
+  const updateAction = {
+    project_id: req.params.id,
+    notes: req.body.notes,
+    description: req.body.description
+  };
+  const id = req.params.id;
+
+  action.get(id).then(data => {
+    if (!data) {
+      return res
+        .status(404)
+        .json({ message: "The action with the specified ID does not exist." });
+    }
+
+    if (!req.body.notes || !req.body.description) {
+      return res.status(400).json({
+        errorMessage: "Please provide note and description for the action."
+      });
+    }
+
+    action
+      .update(id, updateAction)
+      .then(data => {
+        return res.status(200).send(updateAction);
+      })
+      .catch(error => {
+        return res.status(500).json({
+          error: "The action information could not be modified."
+        });
+      });
+  });
 });
 
 module.exports = router;
