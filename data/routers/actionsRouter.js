@@ -1,11 +1,11 @@
 const express = require("express");
 const action = require("../helpers/actionModel.js");
-const { getProjectActions } = require("../helpers/projectModel.js");
+// const { getProjectActions } = require("../helpers/projectModel.js");
 const router = express.Router({
   mergeParams: true
 });
 
-router.get("/actions", (req, res) => {
+router.get("/", (req, res) => {
   action
     .get()
     .then(data => {
@@ -18,7 +18,7 @@ router.get("/actions", (req, res) => {
     });
 });
 
-router.post("/actions/:id", (req, res) => {
+router.post("/:id", (req, res) => {
   const id = req.params.id;
   const newAction = {
     project_id: req.params.id,

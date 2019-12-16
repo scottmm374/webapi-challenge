@@ -2,6 +2,7 @@ const express = require("express");
 const project = require("../helpers/projectModel.js");
 const actionsRouter = require("./actionsRouter");
 const router = express.Router();
+router.use("/:id/actions", actionsRouter);
 router.get("/", (req, res) => {
   project
     .get()
