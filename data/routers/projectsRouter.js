@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
     .then(data => {
       console.log(data, "data");
       if (req.body.name && req.body.description) {
-        return res.status(201).send(newProject);
+        return res.status(201).json({ message: "new project created" });
       }
     })
     .catch(error => {
@@ -103,7 +103,7 @@ router.put("/:id", (req, res) => {
     project
       .update(id, updateProject)
       .then(data => {
-        return res.status(200).send(updateProject);
+        return res.status(200).json({ message: "Project updated" });
       })
       .catch(error => {
         return res.status(500).json({
