@@ -26,7 +26,8 @@ router.post("/", (req, res) => {
   const newAction = {
     project_id: req.params.id,
     notes: req.body.notes,
-    description: req.body.description
+    description: req.body.description,
+    completed: req.body.completed || false
   };
 
   if (!req.body.notes || !req.body.description) {
@@ -84,9 +85,9 @@ router.put("/:actionId", (req, res) => {
   const updateAction = {
     project_id: req.params.id,
     notes: req.body.notes,
-    description: req.body.description
+    description: req.body.description,
+    completed: req.body.completed || false
   };
-  // const id = req.params.id;
 
   action.get(req.params.actionId).then(data => {
     if (!data) {

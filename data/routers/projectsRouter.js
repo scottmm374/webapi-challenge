@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
   const newProject = {
     name: req.body.name,
     description: req.body.description,
-    completed: 0
+    completed: req.body.completed || false
   };
 
   if (!req.body.name || !req.body.description) {
@@ -90,7 +90,7 @@ router.put("/:id", (req, res) => {
   const updateProject = {
     name: req.body.name,
     description: req.body.description,
-    completed: 0
+    completed: req.body.completed || false
   };
   const id = req.params.id;
 
