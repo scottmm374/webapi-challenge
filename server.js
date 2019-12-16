@@ -5,7 +5,7 @@ const projectsRouter = require("./data/routers/projectsRouter.js");
 const server = express();
 server.use(express.json());
 server.use("/api/projects", projectsRouter);
-// server.use("api/actions", actionsRouter);
+// server.use("api/projects/:id/actions", actionsRouter);
 
 server.get("/", (req, res) => {
   res.json({ message: "Welcome to API Sprint Challenge" });

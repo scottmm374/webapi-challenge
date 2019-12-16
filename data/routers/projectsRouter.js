@@ -4,6 +4,7 @@ const actionsRouter = require("./actionsRouter");
 const router = express.Router();
 router.use("/:id/actions", actionsRouter);
 
+// GET all Projects
 router.get("/", (req, res) => {
   project
     .get()
@@ -17,6 +18,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// GET all ACTIONS by Project ID
 router.get("/:id", (req, res) => {
   project
     .getProjectActions(req.params.id)
@@ -30,10 +32,12 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// CREATE New Project
 router.post("/", (req, res) => {
   const newProject = {
     name: req.body.name,
-    description: req.body.description
+    description: req.body.description,
+    completed: 0
   };
 
   if (!req.body.name || !req.body.description) {
@@ -58,6 +62,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// DELETE PROJECT
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
 
@@ -80,10 +85,12 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// EDIT a PROJECT
 router.put("/:id", (req, res) => {
   const updateProject = {
     name: req.body.name,
-    description: req.body.description
+    description: req.body.description,
+    completed: 0
   };
   const id = req.params.id;
 

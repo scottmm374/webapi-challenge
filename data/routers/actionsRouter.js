@@ -1,13 +1,16 @@
 const express = require("express");
 const action = require("../helpers/actionModel.js");
 // const { getProjectActions } = require("../helpers/projectModel.js");
+//
 const router = express.Router({
   mergeParams: true
 });
 
-router.get("/", (req, res) => {
+// Get Specific Project Action by ID
+
+router.get("/:id", (req, res) => {
   action
-    .get()
+    .get(req.params.id)
     .then(data => {
       return res.status(200).json(data);
     })
@@ -18,7 +21,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/:id", (req, res) => {
+router.post("/", (req, res) => {
   const id = req.params.id;
   const newAction = {
     project_id: req.params.id,
@@ -47,7 +50,7 @@ router.post("/:id", (req, res) => {
       }
     })
     .catch(error => {
-      returnres.status(500).json({
+      res.status(500).json({
         errorMessage:
           "There was an error while saving the action to the database"
       });
@@ -55,9 +58,6 @@ router.post("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  //   const id = req.params.id;
-  //   const actionsId = req.params.id
-
   action.get(req.params.id).then(data => {
     if (!data) {
       return res
@@ -80,15 +80,15 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:actionId", (req, res) => {
   const updateAction = {
     project_id: req.params.id,
     notes: req.body.notes,
     description: req.body.description
   };
-  const id = req.params.id;
+  // const id = req.params.id;
 
-  action.get(id).then(data => {
+  action.get(req.params.actionId).then(data => {
     if (!data) {
       return res
         .status(404)
@@ -102,7 +102,7 @@ router.put("/:id", (req, res) => {
     }
 
     action
-      .update(id, updateAction)
+      .update(req.params.actionId, updateAction)
       .then(data => {
         return res.status(200).send(updateAction);
       })
