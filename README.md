@@ -40,13 +40,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+      *Answer*- We learned about Routing (Building several different endpoints) and different types of Middleware, like creating a logger, and authentication middleware.
+
 - [ ] Describe Middleware?
+
+  _Answer_- Essentially functions that interrupt other functions to perform a specific action before it can move on to the next action.
 
 - [ ] Describe a Resource?
 
+  _Answer_- Essentially what you are working with in the database, what you are setting routes to, Like in this project it would be the projects and actions. Last Project would have been users and posts.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+  _Answer_- a http status, successful would be a status 200, created status would be 201, not found 404 ect ect.
+
 - [ ] How can we partition our application into sub-applications?
+
+  _Answer_- Not exactly sure what your asking, but if you mean resources, you can seperate by instances by what the resource is doing, for example, seperate the User from the posts. Folder sturcure is important in creating an easily understandable application.
 
 ## Minimum Viable Product
 
